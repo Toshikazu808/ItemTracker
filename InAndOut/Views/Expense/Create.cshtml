@@ -1,0 +1,58 @@
+﻿@model InAndOut.Models.ViewModels.ExpenseVM
+
+<form method="post" asp-action="Create">
+    <div class="border p-3">
+        @* This line isn't actually needed.  This is just to show that we can specify validation at a specific area in the view *@
+        @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Add Item</h2>
+        </div>
+        <div class="row">
+            <div class="col-12"> @* col-12 means our column width is 12 spaces *@
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Expense.ExpenseName"></label>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="Expense.Amount"></label>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="Expense.ExpenseType"></label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <input asp-for="Expense.ExpenseName" class="form-control" />
+                        <span asp-validation-for="Expense.ExpenseName" class="text-danger"></span>
+                    </div>
+                    <div class="col-4">
+                        <input asp-for="Expense.Amount" class="form-control" />
+                        <span asp-validation-for="Expense.Amount" class="text-danger"></span>
+                    </div>
+                    <div class="col-4"> @* View.Bag is a loosely typed view, which won't show us error on compile time *@
+                        <select asp-for="Expense.ExpenseTypeId" asp-items="@Model.TypeDropDown" class="form-control">
+                            <option selected>--Select Expense Type--</option>
+                        </select>
+                        <span asp-validation-for="Expense.ExpenseTypeId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-2 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-75" value="Create" />
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-danger w-75">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</form>
+
+@section Scripts{ 
+@* This allows for client side validation! *@
+    @{ <partial name="_ValidationScriptsPartial" /> }
+}
